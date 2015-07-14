@@ -1,0 +1,39 @@
+<div class="container" ng-controller="sendEmail as vm">
+
+    <div class="starter-template">
+        <h1>Send Shipment Tracking Info</h1>
+
+        <p class="lead">
+            <div ng-repeat="info in vm.shipmentInfos">
+                <a>{{info.uspsTrackingNo}}. {{info.weight}}</a>
+                <span>
+                    <a class="glyphicon glyphicon-remove" ng-click="vm.removeShipmentInfo($index)"></a>
+                </span>
+
+            </div>
+        </p>
+
+        <p class="lead">
+            <form ng-submit="vm.addShipmentInfo()">
+                <input type="text" placeholder="USPS #" ng-model="vm.uspsTrackingNo" required />
+                <br>
+                <input type ="number" placeholder="Weight in lbs" ng-model="vm.lbsWeight" step="0.1" required />
+                <br>
+                <input type ="number" placeholder="Weight in oz" ng-model="vm.ozWeight" step="0.1" required />
+                <br>
+                <input type ="text" placeholder="Price" ng-model="vm.price" required />
+                <br><br>
+                <button type="submit" class="btn btn-primary">Add Shipment Info</button>
+            </form>
+        </p>
+
+        <p class="lead">
+            <form ng-submit="vm.sendEmail()">
+                <input type ="number" placeholder="Batch Number" ng-model="vm.batchNum" required />
+                <button type="submit" class="btn btn-primary">Send Email</button>
+            </form>
+        </p>
+        <p>{{vm.results}}</p>
+    </div>
+
+</div>

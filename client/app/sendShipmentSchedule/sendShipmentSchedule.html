@@ -1,0 +1,19 @@
+<div class="container" ng-controller="sendShipmentSchedule as vm">
+
+    <div class="starter-template">
+        <h1>Send Shipment Schedule</h1>
+
+        <!--<input type="file" ng-file-select="vm.onFileSelect($files)" />-->
+
+        <input type="text" ng-model="vm.batchNums" placeholder="Enter batch numbers..."/>
+        <br><br>
+        <input type="text" ng-model="vm.targetDate" placeholder="Enter target date..."/>
+        <br><br>
+        <a class="btn btn-primary" ng-click="vm.sendShipmentSchedule()">Send Shipment Schedule</a>
+        <br><br>
+        <p>{{vm.status}}</p>
+        <p ng-bind-html="vm.results"></p>
+
+    </div>
+
+</div>
