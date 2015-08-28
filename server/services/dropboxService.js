@@ -5,8 +5,10 @@
     var Promise = require('bluebird');
     var MemStream = require('../utilities/MemoryStream');
     var appSettings = require('../appSettings');
+    var repository = require('repository');
 
     var client = null;
+    var accessToken = null;
     var rootPath = '';
 
     if(appSettings.env === 'development') { setRootPath('/DenisTest'); }
@@ -64,17 +66,34 @@
 
     function getClient() {
         if (client && client.isAuthenticated()) { return Promise.resolve(client); }
+        return getAccessToken().then(getClientCore);
 
-        return new Promise(function(resolve, reject){
-            client = new Dropbox.Client({ token: 'XTJIM1lZxIIAAAAAAAABZ-X_aByShtITN7dy60uLRcMVDvK37F0Wu8YpUWdnDVpY' });
-            client.authenticate(function(error, client) {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(client);
-                }
+        function getAccessToken() {
+            return repository.getDropboxSettings().then(success, fail);
+
+            function success(results) {
+                accessToken = results[0].accessToken;
+                return true;
+            }
+
+            function fail(error) {
+                console.log(error);
+                return false;
+            }
+        }
+
+        function getClientCore() {
+            return new Promise(function(resolve, reject){
+                client = new Dropbox.Client({ token: accessToken });
+                client.authenticate(function(error, client) {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(client);
+                    }
+                });
             });
-        });
+        }
     }
 
 })(module.exports);

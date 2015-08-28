@@ -10,11 +10,13 @@
     var MailOptions = mongoose.model(model.modelNames.MailOption);
     var User = mongoose.model(model.modelNames.User);
     var Role = mongoose.model(model.modelNames.Role);
+    var DropboxSettings = mongoose.model(model.modelNames.DropboxSetting);
 
     repository.createDefaultAdmin = createDefaultAdmin;
     repository.createDefaultDemoUser = createDefaultDemoUser;
     repository.findUser = findUser;
 
+    repository.getDropboxSettings = getDropboxSettings;
     repository.getSmtpSettings = getSmtpSettings;
     repository.getMailOptions = getMailOptions;
     repository.getDefaultMailOptions = getDefaultMailOptions;
@@ -27,6 +29,10 @@
     repository.saveMailOptions = saveMailOptions;
     repository.saveUsers = saveUsers;
     repository.saveRoles = saveRoles;
+
+    function getDropboxSettings(){
+        return DropboxSettings.find(null).exec();  //this will get all entities
+    }
 
     function getSmtpSettings(){
         return SmtpSettings.find(null).exec();  //this will get all entities

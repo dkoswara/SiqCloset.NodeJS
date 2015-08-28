@@ -5,7 +5,8 @@
         SmtpSetting: 'SmtpSetting',
         MailOption: 'MailOption',
         User: 'User',
-        Role: 'Role'
+        Role: 'Role',
+        DropboxSetting: 'DropboxSetting'
     };
 
     model.modelNames = modelNames;
@@ -47,6 +48,12 @@
                 name: modelNames.Role,
                 schema: {
                     name: String
+                }
+            },
+            {
+                name: modelNames.DropboxSetting,
+                schema: {
+                    accessToken: String
                 }
             }
         ];
